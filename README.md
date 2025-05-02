@@ -18,7 +18,7 @@
 
 
 ## Title  
-**Improving World Model Robustness in DreamerV3 Using Mixed Policy Sampling**
+** Online Exploratory World Model **
 
 ## Contents
 - [1. Introduction](#1-introduction)
@@ -38,12 +38,13 @@ To mitigate these limitations, world models have emerged as an effective paradig
 
 Historically, many world models have operated directly within pixel-space, reconstructing raw images to predict future observations. However, this approach incurs substantial computational costs due to intensive image reconstruction requirements and frequently relies on complex diffusion-based models. Consequently, recent research has increasingly favored latent-space prediction, wherein models operate on compressed, low-dimensional representations of environmental states.
 
-DreamerV3 is a state-of-the-art model-based reinforcement learning (MBRL) algorithm that enables agents to plan and learn from imagined experiences. It leverages a world model to simulate future trajectories, thus significantly improving sample efficiency. At its core, DreamerV3 uses a policy network (an `MLPHead`) that outputs a probability distribution over actions, and typically selects actions with higher probabilities during training and interaction.
+ Recent innovations like DINO-WM utilize pretrained visual embeddings such as those derived from DINOv2 to construct task-agnostic latent dynamics models. These pretrained embeddings eliminate the computational overhead associated with pixel reconstruction entirely, enabling more efficient prediction and planning. Moreover, models such as DINO-WM exhibit significant generalization capabilities across varying task configurations and environments, even in the absence of explicit reward supervision. This advancement underscores the potential of latent-space world models to address fundamental RL challenges, thereby advancing efficiency, generalization, and adaptability in reinforcement learning.
 
-However, this behavior leads the agent to primarily visit trajectories deemed optimal or high-reward according to the current state of the policy. As a result, suboptimal, rare, or "bad" states might never be explored. This lack of diversity in the training data can cause the world model to generalize poorly, especially in complex environments with deceptive rewards or partial observability.
 
 
 ## 2. Proposed Methodology
+
+### 2.1 Method 1 : Online Exploratory World Model
 
 We try to work on these two recent methods and try to solve the issues in these methods. DINO-WM assumes having access to offline datasets with sufficient state-action coverage, which can be challenging to obtain for highly complex environments, and it also not the approach that humans would generally take while performing a task if you are play a game you would just know the basic rules or maybe not even that and start playing by taking random actions and making your understanding of the games dynamics better overtime. So we try to collect data using various exploration strategies. This data is mixed with optimal paths (reward maximizing actions) and suboptimal paths (for exploration) and trained on WM. These explorations strategies will involve maximising reward and reward would be of different types and would vary across environments. 
 
@@ -53,7 +54,7 @@ Our data collection would look like following:
 - Build a short suboptimal exploratory path
 - Train WM on both optimal path and suboptimal paths
 
-### 2.1 Actions Scorer
+#### 2.1.1 Actions Scorer
 
 The reward strategies can be broadly categorized into extrinsic, intrinsic, hybrid, and hierarchical rewards. In our case the intrinsic reward strategies seem to be relevant so we try to work on them. We implement exploration/curiosity based reward strategies. Examples of these strategies in the pushT environment can be increasing the number of collisions between the pusher robotic arm and the T block, increasing pixel to pixel change in the environment per step.
 
@@ -85,7 +86,7 @@ These locally explored suboptimal paths also provide diverse and valuable traini
   <strong><span style="font-size: 18px;">Figure 3: Tree based local search. </span></strong>
 </p>
 
-### 2.2 Ideal WM
+### 2.2 Method 2 : Ideal WM
 The current approach in DINO-WM involves training the world model followed by planning, our proposed methodology integrates these stages into an iterative cycle. Initially, we perform an initial phase of world model training using exploration-derived data. Once the world model has acquired foundational dynamics knowledge, we proceed to a planning stage where optimized actions are computed. These optimized actions, derived from planning, are then incorporated back into further training of the world model, enriching its predictive capabilities and aligning its understanding closely with optimal decision-making patterns.
 
 This iterative cycle consisting of alternating training and planning phases is repeated multiple times. Each iteration progressively refines the world model by continually incorporating the latest optimal actions identified during planning. This continuous feedback loop between planning and training ensures that the world model dynamically improves, effectively integrating strategic insights from planning into its predictive structure.
@@ -111,53 +112,48 @@ This iterative cycle consisting of alternating training and planning phases is r
 
 To test our hypothesis on Dreamer-V3, we modify the agent's policy method such that during environment interaction, the batch of actions is composed of both policy-driven and randomly sampled actions. The implementation details are as follows:
 
-- **Batch Size**: We configure the system to use a batch size of 20 parallel environment instances.
+- **Batch Size**: We configure the system to use a batch size of 32 parallel environment instances.
 - **Policy Sampling**: For the first 16 environments (instances 0 to 15), actions are sampled from the learned policy distribution, preserving the original behavior of DreamerV3.
-- **Random Sampling**: For the remaining 4 environments (instances 16 to 19), actions are uniformly sampled from the full discrete action space (`0` to `17`, inclusive, for Atari).
+- **Random Sampling**: For 4 environments (instances 16 to 19), actions are uniformly sampled from the full discrete action space (`0` to `17`, inclusive, for Atari).
+- **Criteria Based on Middle Portion**: 4 instances: Exploration reward based on pixel to pixel change of middle portion (breakout tile)
+- **Criteria Based on Lower Portion**: 4 instances: Exploration reward based on pixel to pixel change of lower part (disk movement change)
+- **Criteria Based on Upper Portion**: 4 instances: Exploration reward based on pixel to pixel change of uppermost part (score change)
 
-This ensures that in each training step, 80% of actions reflect learned behavior, while 20% inject purely exploratory behavior.
+This ensures that in each training step, 50% of actions reflect learned behavior, while 50% inject purely exploratory behavior.
 
 ## 3. Results
 
-<h3>Push T : Method 1</h3>
+<h3>Results PushT (Method 1 DINO WM)</h3>
 The Dino-WM results on the PushT environment highlight several limitations. While exploratory actions sampled from the distribution introduced some variability, the optimal action selection—being greedily biased toward the nearest path to the T—caused the pusher to remain near the object without meaningful interaction. Although training loss decreased quickly, it plateaued early, suggesting insufficient convergence. The model struggled to learn effective dynamics due to limited training epochs, simplistic planning, and the absence of expert data, which made capturing realistic physics particularly challenging.
 <p align="center">
-  <img src="gifs/output_final_0_failure-ezgif.com-video-to-gif-converter.gif" width="300"><br>
+  <img src="gifs/output_final_0_failure-ezgif.com-video-to-gif-converter.gif" width="300" style="margin-right: 20px;">
+  <img src = "images/M1Dino.png">
 </p>
 
-<h3>Atari : Method 1</h3>
+<h3>Results Atari (Method 1 DINO WM)</h3>
 While random exploration paths sometimes resulted in accidental paddle alignment, the success rate was extremely low due to undirected sampling. The optimal path strategy, using tree-based greedy reward selection, showed consistent short-term success by immediately targeting reachable bricks but failed to maintain the necessary paddle alignment for sustained 
 <p align="center">
-  <img src="gifs/episode1-ezgif.com-video-to-gif-converter.gif" width="300"><br>
+  <img src="gifs/episode1-ezgif.com-video-to-gif-converter.gif" width="300" style="margin-right: 20px;">
+  <img src = "images/M1Atari.png">
 </p>
 
 
-
-<h3>Push T : Method 2</h3>
+<h3>Results PushT (Method 2 DINO WM)</h3>
 PushT environment demonstrate incremental improvement over Method 1, with slightly more effective action behaviors emerging during planning. As in Method 1, the greedy criteria-based planning fails to produce goal-directed behavior consistently, leading the pusher to interact ineffectively with the T-shaped object. Additionally, the absence of expert demonstrations continues to hinder the model’s ability to learn accurate physical interactions, emphasizing the need for better-informed action selection strategies and more diverse training data to improve model performance in complex physical environments.
 
 <p align="center">
-  <img src="gifs/output_final_2_failure-ezgif.com-video-to-gif-converter.gif" width="300"><br>
-  <strong>Figure 3:</strong> Alternate failure case.
+  <img src="gifs/output_final_2_failure-ezgif.com-video-to-gif-converter.gif" width="300" style="margin-right: 20px;">
+  <img src = "images/M2.png" >
 </p>
 
-<h3>Result 4</h3>
+<h3>Results (Inducing exploration in Dreamer-V3)</h3>
+The primary reason our modified DreamerV3 model did not achieve the desired performance is the significantly reduced training duration. While the original DreamerV3 model was trained for 10^10 steps, our model was trained for only 10^5 steps, limiting its opportunity to thoroughly learn optimal policies. Additionally, introducing random trajectories as seed states for the imagination process inadvertently slowed policy convergence, as the model frequently imagined suboptimal or irrelevant scenarios. To address this, we propose masking these random-action instances during the imagination phase, ensuring the policy training focuses exclusively on trajectories derived from its learned distribution, potentially accelerating convergence and improving performance.
 <p align="center">
   <img src="gifs/episode1_gray-ezgif.com-video-to-gif-converter.gif" width="300"><br>
-  <strong>Figure 3:</strong> Alternate failure case.
 </p>
 
 
-## 4. Results and Discussion
 
-
-## 5. Effects on Training Dynamics
-
-This mixed sampling strategy influences the DreamerV3 learning process in two key ways:
-
-1. **Improved World Model Coverage**: Suboptimal and "bad" states, introduced via random actions, enhance the diversity of the replay buffer. The world model learns to simulate a broader and more accurate range of environment dynamics.
-
-2. **Robust Policy Learning**: Since DreamerV3 uses the final `k` steps from real trajectories to seed imagination rollouts, the inclusion of difficult or novel states forces the policy to learn strategies for recovery and generalization.
 
 
 ## 6. Conclusion
