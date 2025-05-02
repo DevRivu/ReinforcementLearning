@@ -43,22 +43,6 @@ DreamerV3 is a state-of-the-art model-based reinforcement learning (MBRL) algori
 However, this behavior leads the agent to primarily visit trajectories deemed optimal or high-reward according to the current state of the policy. As a result, suboptimal, rare, or "bad" states might never be explored. This lack of diversity in the training data can cause the world model to generalize poorly, especially in complex environments with deceptive rewards or partial observability.
 
 
-## 2. Motivation for the Change
-
-Advanced latent-space models, such as DreamerV3, employ a Recurrent State-Space Model (RSSM) architecture. DreamerV3 encodes high-dimensional observations into compact stochastic latent variables, predicts the evolution of these latent representations conditioned on actions, and refines these representations through combined reconstruction and reward prediction losses. Notably, such models demonstrate robust performance across various benchmarks without task-specific hyperparameter adjustments.
-
-Complementarily, recent innovations like DINO-WM utilize pretrained visual embeddings—such as those derived from DINOv2—to construct task-agnostic latent dynamics models. These pretrained embeddings eliminate the computational overhead associated with pixel reconstruction entirely, enabling more efficient prediction and planning. Moreover, models such as DINO-WM exhibit significant generalization capabilities across varying task configurations and environments, even in the absence of explicit reward supervision. This advancement underscores the potential of latent-space world models to address fundamental RL challenges, thereby advancing efficiency, generalization, and adaptability in reinforcement learning.
-
-Despite these advances, a key limitation persists in many world model pipelines: the narrow distribution of trajectories used during training. The world model in DreamerV3 is trained using observations collected during environment interaction. If the policy continually samples only high-probability actions, the resulting state transitions tend to be narrow and repetitive, focused around a narrow band of optimal trajectories. Consequently:
-
-- The world model fails to accurately capture the dynamics of rare or suboptimal regions of the state space.
-- The policy becomes brittle, unable to recover when it encounters unforeseen states during inference.
-- The imagined rollouts used for policy improvement remain anchored to overly idealized conditions.
-
-To address these limitations, we introduce a controlled exploration strategy by augmenting the action sampling process during real-world interaction.
-
-
-
 ## 2. Proposed Methodology
 
 We build upon two recent advancements—DreamerV3 and DINO-WM—and aim to address critical limitations in their exploration mechanisms. While DINO-WM leverages pretrained visual embeddings and demonstrates strong generalization, it assumes access to offline datasets with sufficient state-action coverage. This assumption is impractical in highly complex environments where collecting such comprehensive data is difficult. Moreover, this passive data consumption does not reflect how humans typically approach unfamiliar tasks. When playing a new game, for example, humans often begin with little or no knowledge of the rules and gradually form an understanding through exploratory interaction—often by taking random actions and observing the consequences.
@@ -93,20 +77,8 @@ This ensures that in each training step, 80% of actions reflect learned behavior
 
 
 
-## 4. Technical Implementation
 
-The modification is implemented inside the `policy` method of the custom `Agent` class:
-
-- After computing the `act` dictionary from the policy network, we generate a host-side PRNG key to sample 4 random actions.
-- These random actions are inserted into the second half of the `act['action']` tensor using JAX's `.at[].set()` API.
-- This operation is performed outside of the JAX tracing context to avoid disallowed host-to-device data transfers.
-
-Furthermore, to support this change:
-
-- The `config.yaml` file is updated to set `batch_size: 20`.
-- The number of parallel environments in the runner is configured to 20.
-
-## 5. Effects on Training Dynamics
+## 3. Effects on Training Dynamics
 
 This mixed sampling strategy influences the DreamerV3 learning process in two key ways:
 
@@ -114,14 +86,16 @@ This mixed sampling strategy influences the DreamerV3 learning process in two ke
 
 2. **Robust Policy Learning**: Since DreamerV3 uses the final `k` steps from real trajectories to seed imagination rollouts, the inclusion of difficult or novel states forces the policy to learn strategies for recovery and generalization.
 
-## 6. Assumptions and Constraints
+## 4. Assumptions and Constraints
 
 - This change applies only during real-world environment interaction. The policy used in imagination remains unchanged to preserve the benefits of gradient-based policy improvement.
 - Batch size and environment count must be consistent (20 in this case) to maintain alignment between real trajectories and imagination seeds.
 - The fraction of random actions (4/20 = 20%) is tunable. Larger ratios may induce more exploration but may destabilize training.
 
 
-## 7. Conclusion
+## 5. Results
+
+## 6. Conclusion
 
 We introduce a lightweight yet impactful modification to the DreamerV3 framework to promote better exploration and robustness. By injecting randomly sampled actions into a portion of the interaction batch, we encourage the agent to visit diverse states, making both the world model and policy more capable of handling suboptimal and unexpected situations. This strategy preserves the core structure of DreamerV3 while addressing one of its key limitations in exploration and generalization.
 
