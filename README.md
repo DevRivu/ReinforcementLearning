@@ -65,21 +65,19 @@ To address these limitations, we introduce a controlled exploration strategy by 
 
 
 
-## 3. Proposed Modification: Mixed Policy Sampling
-
-We modify the agent's policy method such that during environment interaction, the batch of actions is composed of both policy-driven and randomly sampled actions. The implementation details are as follows:
-
-- **Batch Size**: We configure the system to use a batch size of 20 parallel environment instances.
-- **Policy Sampling**: For the first 16 environments (instances 0 to 15), actions are sampled from the learned policy distribution, preserving the original behavior of DreamerV3.
-- **Random Sampling**: For the remaining 4 environments (instances 16 to 19), actions are uniformly sampled from the full discrete action space (`0` to `17`, inclusive, for Atari).
-
-This ensures that in each training step, 80% of actions reflect learned behavior, while 20% inject purely exploratory behavior.
+## 3. Proposed Modification:
 
 <p align="center">
   <img src="images/EA.png" width="500" style="margin-right: 20px;" />
   <img src="images/PA.png" width="500" />
 </p>
 
+So to test our hypothesis on Dreamer V3, we modify the agent’s policy method such that during environment interaction, the batch of actions is composed of both policy-driven and randomly sampled actions. The implementation details are as follows:
+
+Batch Size: We configure the system to use a batch size of 20 parallel environment instances.
+Policy Sampling: For the first 16 environments (instances 0 to 15), actions are sampled from the learned policy distribution, preserving the original behavior of DreamerV3.
+Random Sampling: For the remaining 4 environments (instances 16 to 19), actions are uniformly sampled from the full discrete action space (0 to 17, inclusive, for Atari).
+This ensures that in each training step, 80% of actions reflect learned behavior, while 20% inject purely exploratory behavior.
 
 
 ## 4. Technical Implementation
