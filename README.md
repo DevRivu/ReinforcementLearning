@@ -62,7 +62,7 @@ The reward strategies can be broadly categorized into extrinsic, intrinsic, hybr
   <img src="images/arrow1.png" width="900"/>
 </p>
 <p align="center">
-  <img src="images/a1.png" width="900"/>
+  <strong><span style="font-size: 25px;">Figure 1: Blue: optimal path (according to some action_scorer); red: suboptimal paths.</span></strong>
 </p>
 
 <p align="center">
@@ -70,9 +70,8 @@ The reward strategies can be broadly categorized into extrinsic, intrinsic, hybr
 </p>
 
 <p align="center">
-  <img src="images/asp.png" width="900"/>
+  <strong><span style="font-size: 25px;">Figure 2: Action scorer. </span></strong>
 </p>
-
 In addition to global exploration strategies, we adopt a local exploration approach to effectively train and refine our world model. Specifically, starting from an identified optimal trajectory (represented by the dark blue line), we systematically explore additional nearby states within a defined local window. This local exploration involves investigating multiple alternative paths branching off from the current optimal trajectory.
 Within this local exploration window, we calculate and evaluate rewards for all potential state-action pairs explored. Importantly, if any of these alternative paths within the local window yield a higher reward compared to the previously identified optimal path, the superior alternative path (represented by the light blue line) replaces the current optimal trajectory, becoming the new focus for exploration. This dynamic updating ensures continuous refinement and adaptation of the optimal path based on the most rewarding outcomes discovered through local exploration.
 These locally explored suboptimal paths also provide diverse and valuable training data, enriching the world model's understanding by covering a broader range of environmental dynamics. This comprehensive exploration methodology enhances the predictive capability of our world model, significantly increasing policy robustness and adaptability to diverse and unforeseen environmental conditions.
@@ -83,7 +82,7 @@ These locally explored suboptimal paths also provide diverse and valuable traini
 </p>
 
 <p align="center">
-  <img src="images/a2.png" width="900"/>
+  <strong><span style="font-size: 25px;">Figure 3: Tree based local search. </span></strong>
 </p>
 
 ### 2.2 Ideal WM
@@ -97,13 +96,16 @@ This iterative cycle consisting of alternating training and planning phases is r
 </p>
 
 <p align="center">
-  <strong><span style="font-size: 16px;">Figure 4: Existing Architecture</span></strong>
+  <strong><span style="font-size: 25px;">Figure 4: Existing Architecture</span></strong>
 </p>
 
 <p align="center">
   <img src="images/PA.png" width="500" />
 </p>
-<p align="center"><em>Figure 5: Proposed Architecture</em></p>
+<p align="center">
+  <strong><span style="font-size: 25px;">Figure 5: Proposed Architecture</span></strong>
+</p>
+
 
 ### 2.3 Inducing Exploration in Dreamer-V3
 
