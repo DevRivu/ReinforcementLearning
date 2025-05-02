@@ -100,8 +100,8 @@ This iterative cycle consisting of alternating training and planning phases is r
 
 <p align="center">
   <img src="images/PA.png" width="500" />
-  <em>Figure 5: Proposed Architecture </em>
 </p>
+<p align="center"><em>Figure 5: Proposed Architecture</em></p>
 
 ### 2.3 Inducing Exploration in Dreamer-V3
 
