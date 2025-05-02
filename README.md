@@ -119,17 +119,15 @@ This ensures that in each training step, 80% of actions reflect learned behavior
 
 ## 3. Results
 
-<video width="640" height="360" controls>
-  <source src="videos/episode1_gray.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+### Result 1
+![Result 1](gifs/episode1-ezgif.com-video-to-gif-converter.gif)
 
-<br><br>
+### Result 2
+![Result 2](gifs/output_final_0_failure-ezgif.com-video-to-gif-converter.gif)
 
-<video width="640" height="360" controls>
-  <source src="videos/episode2_color.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+### Result 3
+![Result 3](gifs/output_final_2_failure-ezgif.com-video-to-gif-converter.gif)
+
 
 ## 4. Results and Discussion
 
