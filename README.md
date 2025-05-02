@@ -143,7 +143,7 @@ PushT environment demonstrate incremental improvement over Method 1, with slight
 
 <p align="center">
   <img src="gifs/output_final_2_failure-ezgif.com-video-to-gif-converter.gif" width="300" style="margin-right: 20px;">
-  <img src = "images/M2.png" >
+  <img src = "images/M22.png" >
 </p>
 
 <h3>Results (Inducing exploration in Dreamer-V3)</h3>
@@ -153,9 +153,6 @@ The primary reason our modified DreamerV3 model did not achieve the desired perf
 </p>
 
 
-
-
-
 ## 6. Conclusion
 
 We introduce a lightweight yet impactful modification to the DreamerV3 framework to promote better exploration and robustness. By injecting randomly sampled actions into a portion of the interaction batch, we encourage the agent to visit diverse states, making both the world model and policy more capable of handling suboptimal and unexpected situations. This strategy preserves the core structure of DreamerV3 while addressing one of its key limitations in exploration and generalization.
@@ -163,3 +160,9 @@ We introduce a lightweight yet impactful modification to the DreamerV3 framework
 This mixed-policy sampling technique offers a promising direction for enhancing MBRL agents, particularly in environments where optimal trajectories are hard to discover without structured exploration.
 
 ## 7. Future Directions
+
+- Try a neural network–based action scorer.
+- Integrate planning inside world model (WM) training.
+  - Jointly optimize planning and world model
+- Evaluate across diverse environments to assess robustness and failure modes of the method.
+
