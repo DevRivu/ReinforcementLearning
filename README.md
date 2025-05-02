@@ -96,7 +96,9 @@ This iterative cycle consisting of alternating training and planning phases is r
   <img src="images/EA.png" width="500" />
 </p>
 
-<p align="center"><em>Figure 4: Existing Architecture</em></p>
+<p align="center">
+  <strong><span style="font-size: 16px;">Figure 4: Existing Architecture</span></strong>
+</p>
 
 <p align="center">
   <img src="images/PA.png" width="500" />
