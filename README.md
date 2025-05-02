@@ -59,12 +59,12 @@ The reward strategies can be broadly categorized into extrinsic, intrinsic, hybr
 
 
 <p align="center">
-  <img src="images/arrow1.png" width="500"  />
+  <img src="images/arrow1.png" width="500"/>
   <em>Figure 1: Blue -> optimal path (according to some action_scorer); red -> suboptimal paths.</em>
 </p>
 
 <p align="center">
-  <img src="images/as.png" width="500"  />
+  <img src="images/as.png" width="500"/>
   <em>Figure 2: Action scorer.</em>
 </p>
 
@@ -84,10 +84,11 @@ The current approach in DINO-WM involves training the world model followed by pl
 This iterative cycle consisting of alternating training and planning phases is repeated multiple times. Each iteration progressively refines the world model by continually incorporating the latest optimal actions identified during planning. This continuous feedback loop between planning and training ensures that the world model dynamically improves, effectively integrating strategic insights from planning into its predictive structure.
 
 
-<p align="center">
+<div align="center">
   <img src="images/EA.png" width="500"/><br>
-  <em>Figure 4: Existing Architecture </em>
-</p>
+  <em>Figure 4: Existing Architecture</em>
+</div>
+
 
 <p align="center">
   <img src="images/PA.png" width="500" />
