@@ -63,6 +63,12 @@ We modify the agent's policy method such that during environment interaction, th
 
 This ensures that in each training step, 80% of actions reflect learned behavior, while 20% inject purely exploratory behavior.
 
+<p align="center">
+  <img src="images/EA.png" width="500" style="margin-right: 20px;" />
+  <img src="images/PA.png" width="500" />
+</p>
+
+
 
 ## 4. Technical Implementation
 
