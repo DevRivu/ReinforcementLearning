@@ -45,26 +45,44 @@ However, this behavior leads the agent to primarily visit trajectories deemed op
 
 ## 2. Proposed Methodology
 
-We build upon two recent advancements—DreamerV3 and DINO-WM—and aim to address critical limitations in their exploration mechanisms. While DINO-WM leverages pretrained visual embeddings and demonstrates strong generalization, it assumes access to offline datasets with sufficient state-action coverage. This assumption is impractical in highly complex environments where collecting such comprehensive data is difficult. Moreover, this passive data consumption does not reflect how humans typically approach unfamiliar tasks. When playing a new game, for example, humans often begin with little or no knowledge of the rules and gradually form an understanding through exploratory interaction—often by taking random actions and observing the consequences.
+We try to work on these two recent methods and try to solve the issues in these methods. DINO-WM assumes having access to offline datasets with sufficient state-action coverage, which can be challenging to obtain for highly complex environments, and it also not the approach that humans would generally take while performing a task if you are play a game you would just know the basic rules or maybe not even that and start playing by taking random actions and making your understanding of the games dynamics better overtime. So we try to collect data using various exploration strategies. This data is mixed with optimal paths (reward maximizing actions) and suboptimal paths (for exploration) and trained on WM. These explorations strategies will involve maximising reward and reward would be of different types and would vary across environments. 
 
-Motivated by this observation, we explore a variety of data collection strategies rooted in active exploration. These strategies are centered around reward maximization, with the nature of the reward varying across environments. Broadly, we classify reward strategies into four categories: **extrinsic**, **intrinsic**, **hybrid**, and **hierarchical**. In our case, **intrinsic reward strategies** are particularly relevant, as they encourage exploration based on novelty, uncertainty, or learning progress, rather than task-specific external rewards.
+Our data collection would look like following:
+- Start from state S_0
+- Say n possible actions, use action_scorer to get optimal action, take the best exploratory action based  on the exploration reward aside from the optimal action
+- Build a short suboptimal exploratory path
+- Train WM on both optimal path and suboptimal paths
 
-In addition to global exploration mechanisms, we incorporate a **local exploration approach** to refine and train the world model more effectively. Starting from an existing optimal trajectory (represented by the dark blue line), we systematically explore neighboring states within a defined local window. This process involves evaluating multiple alternative state-action paths that branch from the current trajectory.
+### 2.1 Actions Scorer
 
-Within this local exploration window, we compute and compare rewards for all explored paths. If any alternative path yields a higher reward than the current trajectory, the new path (represented by the light blue line) replaces the existing one as the new optimal trajectory. This dynamic updating ensures that the policy continually shifts toward more rewarding trajectories as they are discovered.
+The reward strategies can be broadly categorized into extrinsic, intrinsic, hybrid, and hierarchical rewards. In our case the intrinsic reward strategies seem to be relevant so we try to work on them. We implement exploration/curiosity based reward strategies. Examples of these strategies in the pushT environment can be increasing the number of collisions between the pusher robotic arm and the T block, increasing pixel to pixel change in the environment per step.
 
-Furthermore, these locally explored paths—although initially suboptimal—introduce valuable diversity into the training data. This enriched set of trajectories enhances the world model's predictive capabilities by exposing it to a wider spectrum of environmental dynamics. Overall, this comprehensive exploration methodology improves both the **robustness** and **generalization** of the learned policy, enabling the agent to better adapt to unforeseen situations and dynamic environments.
 
 <p align="center">
-  <img src="images/arrow1.png" width="300" style="margin-right: 20px;" />
-  <img src="images/arrow2.png" width="300" />
+  <img src="images/arrow1.png" width="500"  />
 </p>
+
+In addition to global exploration strategies, we adopt a local exploration approach to effectively train and refine our world model. Specifically, starting from an identified optimal trajectory (represented by the dark blue line), we systematically explore additional nearby states within a defined local window. This local exploration involves investigating multiple alternative paths branching off from the current optimal trajectory.
+Within this local exploration window, we calculate and evaluate rewards for all potential state-action pairs explored. Importantly, if any of these alternative paths within the local window yield a higher reward compared to the previously identified optimal path, the superior alternative path (represented by the light blue line) replaces the current optimal trajectory, becoming the new focus for exploration. This dynamic updating ensures continuous refinement and adaptation of the optimal path based on the most rewarding outcomes discovered through local exploration.
+These locally explored suboptimal paths also provide diverse and valuable training data, enriching the world model's understanding by covering a broader range of environmental dynamics. This comprehensive exploration methodology enhances the predictive capability of our world model, significantly increasing policy robustness and adaptability to diverse and unforeseen environmental conditions.
+
+
+<p align="center">
+  <img src="images/arrow2.png" width="500" />
+</p>
+
+### 2.2 Ideal WM
+The current approach in DINO-WM involves training the world model followed by planning, our proposed methodology integrates these stages into an iterative cycle. Initially, we perform an initial phase of world model training using exploration-derived data. Once the world model has acquired foundational dynamics knowledge, we proceed to a planning stage where optimized actions are computed. These optimized actions, derived from planning, are then incorporated back into further training of the world model, enriching its predictive capabilities and aligning its understanding closely with optimal decision-making patterns.
+
+This iterative cycle consisting of alternating training and planning phases is repeated multiple times. Each iteration progressively refines the world model by continually incorporating the latest optimal actions identified during planning. This continuous feedback loop between planning and training ensures that the world model dynamically improves, effectively integrating strategic insights from planning into its predictive structure.
 
 
 <p align="center">
   <img src="images/EA.png" width="300" style="margin-right: 20px;" />
   <img src="images/PA.png" width="300" />
 </p>
+
+### 2.3 Inducing Exploration in Dreamer-V3
 
 To test our hypothesis on Dreamer-V3, we modify the agent's policy method such that during environment interaction, the batch of actions is composed of both policy-driven and randomly sampled actions. The implementation details are as follows:
 
@@ -74,11 +92,12 @@ To test our hypothesis on Dreamer-V3, we modify the agent's policy method such t
 
 This ensures that in each training step, 80% of actions reflect learned behavior, while 20% inject purely exploratory behavior.
 
+## 3. Results
+
+## 4. Results and Discussion
 
 
-
-
-## 3. Effects on Training Dynamics
+## 5. Effects on Training Dynamics
 
 This mixed sampling strategy influences the DreamerV3 learning process in two key ways:
 
@@ -86,14 +105,6 @@ This mixed sampling strategy influences the DreamerV3 learning process in two ke
 
 2. **Robust Policy Learning**: Since DreamerV3 uses the final `k` steps from real trajectories to seed imagination rollouts, the inclusion of difficult or novel states forces the policy to learn strategies for recovery and generalization.
 
-## 4. Assumptions and Constraints
-
-- This change applies only during real-world environment interaction. The policy used in imagination remains unchanged to preserve the benefits of gradient-based policy improvement.
-- Batch size and environment count must be consistent (20 in this case) to maintain alignment between real trajectories and imagination seeds.
-- The fraction of random actions (4/20 = 20%) is tunable. Larger ratios may induce more exploration but may destabilize training.
-
-
-## 5. Results
 
 ## 6. Conclusion
 
@@ -101,4 +112,4 @@ We introduce a lightweight yet impactful modification to the DreamerV3 framework
 
 This mixed-policy sampling technique offers a promising direction for enhancing MBRL agents, particularly in environments where optimal trajectories are hard to discover without structured exploration.
 
-
+## 7. Future Directions
