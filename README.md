@@ -43,12 +43,6 @@ DreamerV3 is a state-of-the-art model-based reinforcement learning (MBRL) algori
 However, this behavior leads the agent to primarily visit trajectories deemed optimal or high-reward according to the current state of the policy. As a result, suboptimal, rare, or "bad" states might never be explored. This lack of diversity in the training data can cause the world model to generalize poorly, especially in complex environments with deceptive rewards or partial observability.
 
 
-<p align="center">
-  <img src="images/arrow1.png" width="500" style="margin-right: 20px;" />
-  <img src="images/arrow2.png" width="500" />
-</p>
-
-
 ## 2. Motivation for the Change
 
 Advanced latent-space models, such as DreamerV3, employ a Recurrent State-Space Model (RSSM) architecture. DreamerV3 encodes high-dimensional observations into compact stochastic latent variables, predicts the evolution of these latent representations conditioned on actions, and refines these representations through combined reconstruction and reward prediction losses. Notably, such models demonstrate robust performance across various benchmarks without task-specific hyperparameter adjustments.
@@ -65,19 +59,38 @@ To address these limitations, we introduce a controlled exploration strategy by 
 
 
 
-## 3. Proposed Modification:
+## 2. Proposed Methodology
+
+We build upon two recent advancements—DreamerV3 and DINO-WM—and aim to address critical limitations in their exploration mechanisms. While DINO-WM leverages pretrained visual embeddings and demonstrates strong generalization, it assumes access to offline datasets with sufficient state-action coverage. This assumption is impractical in highly complex environments where collecting such comprehensive data is difficult. Moreover, this passive data consumption does not reflect how humans typically approach unfamiliar tasks. When playing a new game, for example, humans often begin with little or no knowledge of the rules and gradually form an understanding through exploratory interaction—often by taking random actions and observing the consequences.
+
+Motivated by this observation, we explore a variety of data collection strategies rooted in active exploration. These strategies are centered around reward maximization, with the nature of the reward varying across environments. Broadly, we classify reward strategies into four categories: **extrinsic**, **intrinsic**, **hybrid**, and **hierarchical**. In our case, **intrinsic reward strategies** are particularly relevant, as they encourage exploration based on novelty, uncertainty, or learning progress, rather than task-specific external rewards.
+
+In addition to global exploration mechanisms, we incorporate a **local exploration approach** to refine and train the world model more effectively. Starting from an existing optimal trajectory (represented by the dark blue line), we systematically explore neighboring states within a defined local window. This process involves evaluating multiple alternative state-action paths that branch from the current trajectory.
+
+Within this local exploration window, we compute and compare rewards for all explored paths. If any alternative path yields a higher reward than the current trajectory, the new path (represented by the light blue line) replaces the existing one as the new optimal trajectory. This dynamic updating ensures that the policy continually shifts toward more rewarding trajectories as they are discovered.
+
+Furthermore, these locally explored paths—although initially suboptimal—introduce valuable diversity into the training data. This enriched set of trajectories enhances the world model's predictive capabilities by exposing it to a wider spectrum of environmental dynamics. Overall, this comprehensive exploration methodology improves both the **robustness** and **generalization** of the learned policy, enabling the agent to better adapt to unforeseen situations and dynamic environments.
 
 <p align="center">
-  <img src="images/EA.png" width="500" style="margin-right: 20px;" />
-  <img src="images/PA.png" width="500" />
+  <img src="images/arrow1.png" width="300" style="margin-right: 20px;" />
+  <img src="images/arrow2.png" width="300" />
 </p>
 
-So to test our hypothesis on Dreamer V3, we modify the agent’s policy method such that during environment interaction, the batch of actions is composed of both policy-driven and randomly sampled actions. The implementation details are as follows:
 
-Batch Size: We configure the system to use a batch size of 20 parallel environment instances.
-Policy Sampling: For the first 16 environments (instances 0 to 15), actions are sampled from the learned policy distribution, preserving the original behavior of DreamerV3.
-Random Sampling: For the remaining 4 environments (instances 16 to 19), actions are uniformly sampled from the full discrete action space (0 to 17, inclusive, for Atari).
+<p align="center">
+  <img src="images/EA.png" width="300" style="margin-right: 20px;" />
+  <img src="images/PA.png" width="300" />
+</p>
+
+To test our hypothesis on Dreamer-V3, we modify the agent's policy method such that during environment interaction, the batch of actions is composed of both policy-driven and randomly sampled actions. The implementation details are as follows:
+
+- **Batch Size**: We configure the system to use a batch size of 20 parallel environment instances.
+- **Policy Sampling**: For the first 16 environments (instances 0 to 15), actions are sampled from the learned policy distribution, preserving the original behavior of DreamerV3.
+- **Random Sampling**: For the remaining 4 environments (instances 16 to 19), actions are uniformly sampled from the full discrete action space (`0` to `17`, inclusive, for Atari).
+
 This ensures that in each training step, 80% of actions reflect learned behavior, while 20% inject purely exploratory behavior.
+
+
 
 
 ## 4. Technical Implementation
