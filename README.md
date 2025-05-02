@@ -119,19 +119,23 @@ This ensures that in each training step, 80% of actions reflect learned behavior
 
 ## 3. Results
 
-<h3>Result 1</h3>
-<p align="center">
-  <img src="gifs/episode1-ezgif.com-video-to-gif-converter.gif" width="300"><br>
-  <strong>Figure 1:</strong> Agent completes the task.
-</p>
-
-<h3>Result 2</h3>
+<h3>Push T : Method 1</h3>
+The Dino-WM results on the PushT environment highlight several limitations. While exploratory actions sampled from the distribution introduced some variability, the optimal action selection—being greedily biased toward the nearest path to the T—caused the pusher to remain near the object without meaningful interaction. Although training loss decreased quickly, it plateaued early, suggesting insufficient convergence. The model struggled to learn effective dynamics due to limited training epochs, simplistic planning, and the absence of expert data, which made capturing realistic physics particularly challenging.
 <p align="center">
   <img src="gifs/output_final_0_failure-ezgif.com-video-to-gif-converter.gif" width="300"><br>
-  <strong>Figure 2:</strong> Example of a failure case.
 </p>
 
-<h3>Result 3</h3>
+<h3>Atari : Method 1</h3>
+While random exploration paths sometimes resulted in accidental paddle alignment, the success rate was extremely low due to undirected sampling. The optimal path strategy, using tree-based greedy reward selection, showed consistent short-term success by immediately targeting reachable bricks but failed to maintain the necessary paddle alignment for sustained 
+<p align="center">
+  <img src="gifs/episode1-ezgif.com-video-to-gif-converter.gif" width="300"><br>
+</p>
+
+
+
+<h3>Push T : Method 2</h3>
+PushT environment demonstrate incremental improvement over Method 1, with slightly more effective action behaviors emerging during planning. As in Method 1, the greedy criteria-based planning fails to produce goal-directed behavior consistently, leading the pusher to interact ineffectively with the T-shaped object. Additionally, the absence of expert demonstrations continues to hinder the model’s ability to learn accurate physical interactions, emphasizing the need for better-informed action selection strategies and more diverse training data to improve model performance in complex physical environments.
+
 <p align="center">
   <img src="gifs/output_final_2_failure-ezgif.com-video-to-gif-converter.gif" width="300"><br>
   <strong>Figure 3:</strong> Alternate failure case.
