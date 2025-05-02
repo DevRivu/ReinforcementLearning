@@ -60,6 +60,12 @@ The reward strategies can be broadly categorized into extrinsic, intrinsic, hybr
 
 <p align="center">
   <img src="images/arrow1.png" width="500"  />
+  <em>Figure 1: Blue -> optimal path (according to some action_scorer); red -> suboptimal paths.</em>
+</p>
+
+<p align="center">
+  <img src="images/as.png" width="500"  />
+  <em>Figure 2: Action scorer.</em>
 </p>
 
 In addition to global exploration strategies, we adopt a local exploration approach to effectively train and refine our world model. Specifically, starting from an identified optimal trajectory (represented by the dark blue line), we systematically explore additional nearby states within a defined local window. This local exploration involves investigating multiple alternative paths branching off from the current optimal trajectory.
@@ -69,6 +75,7 @@ These locally explored suboptimal paths also provide diverse and valuable traini
 
 <p align="center">
   <img src="images/arrow2.png" width="500" />
+  <em>Figure 3: Tree based local search </em>
 </p>
 
 ### 2.2 Ideal WM
@@ -78,8 +85,13 @@ This iterative cycle consisting of alternating training and planning phases is r
 
 
 <p align="center">
-  <img src="images/EA.png" width="300" style="margin-right: 20px;" />
-  <img src="images/PA.png" width="300" />
+  <img src="images/EA.png" width="500"  />
+  <em>Figure 4: Existing Architecture </em>
+</p>
+
+<p align="center">
+  <img src="images/PA.png" width="500" />
+  <em>Figure 5: Proposed Architecture </em>
 </p>
 
 ### 2.3 Inducing Exploration in Dreamer-V3
