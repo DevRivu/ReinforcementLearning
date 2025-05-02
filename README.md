@@ -29,6 +29,7 @@
 - [6. Assumptions and Constraints](#6-assumptions-and-constraints)
 - [7. Conclusion](#7-conclusion)
 
+
 ## 1. Introduction
 
 DreamerV3 is a state-of-the-art model-based reinforcement learning (MBRL) algorithm that enables agents to plan and learn from imagined experiences. It leverages a world model to simulate future trajectories, thus significantly improving sample efficiency. At its core, DreamerV3 uses a policy network (an `MLPHead`) that outputs a probability distribution over actions, and typically selects actions with higher probabilities during training and interaction.
