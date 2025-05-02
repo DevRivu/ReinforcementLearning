@@ -134,7 +134,7 @@ The Dino-WM results on the PushT environment highlight several limitations. Whil
 While random exploration paths sometimes resulted in accidental paddle alignment, the success rate was extremely low due to undirected sampling. The optimal path strategy, using tree-based greedy reward selection, showed consistent short-term success by immediately targeting reachable bricks but failed to maintain the necessary paddle alignment for sustained 
 <p align="center">
   <img src="gifs/episode1-ezgif.com-video-to-gif-converter.gif" width="300" style="margin-right: 20px;">
-  <img src = "images/M1Atari.png">
+  <img src = "images/M22.png">
 </p>
 
 
@@ -143,7 +143,7 @@ PushT environment demonstrate incremental improvement over Method 1, with slight
 
 <p align="center">
   <img src="gifs/output_final_2_failure-ezgif.com-video-to-gif-converter.gif" width="300" style="margin-right: 20px;">
-  <img src = "images/M22.png" >
+  <img src = "images/M2.png" >
 </p>
 
 <h3>Results (Inducing exploration in Dreamer-V3)</h3>
@@ -162,7 +162,6 @@ This mixed-policy sampling technique offers a promising direction for enhancing 
 ## 7. Future Directions
 
 - Try a neural network–based action scorer.
-- Integrate planning inside world model (WM) training.
-  - Jointly optimize planning and world model
+- Integrate planning inside world model (WM) training and jointly optimize planning and world model
 - Evaluate across diverse environments to assess robustness and failure modes of the method.
 
