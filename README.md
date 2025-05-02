@@ -67,7 +67,10 @@ The reward strategies can be broadly categorized into extrinsic, intrinsic, hybr
 
 <p align="center">
   <img src="images/as.png" width="500"/>
-  <em>Figure 2: Action scorer.</em>
+</p>
+
+<p align="center">
+  <img src="images/asp.png" width="900"/>
 </p>
 
 In addition to global exploration strategies, we adopt a local exploration approach to effectively train and refine our world model. Specifically, starting from an identified optimal trajectory (represented by the dark blue line), we systematically explore additional nearby states within a defined local window. This local exploration involves investigating multiple alternative paths branching off from the current optimal trajectory.
@@ -77,7 +80,10 @@ These locally explored suboptimal paths also provide diverse and valuable traini
 
 <p align="center">
   <img src="images/arrow2.png" width="500" />
-  <em>Figure 3: Tree based local search </em>
+</p>
+
+<p align="center">
+  <img src="images/a2.png" width="900"/>
 </p>
 
 ### 2.2 Ideal WM
