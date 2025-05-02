@@ -2,12 +2,14 @@
 
 ## Team Members  
 <p align="center">
-  <strong>Alice Smith</strong> &nbsp;&nbsp;&nbsp;&nbsp;
-  <strong>Bob Johnson</strong> &nbsp;&nbsp;&nbsp;&nbsp;
-  <strong>Charlie Lee</strong><br>
-  as1234@nyu.edu &nbsp;&nbsp;&nbsp;&nbsp;
-  bj5678@nyu.edu &nbsp;&nbsp;&nbsp;&nbsp;
-  cl9012@nyu.edu
+  <strong>Jayesh Chaudhari</strong> &nbsp;&nbsp;&nbsp;&nbsp;
+  <strong>Satyam Kumar</strong> &nbsp;&nbsp;&nbsp;&nbsp;
+  <strong>Varad Vijay Suryavanshi</strong> &nbsp;&nbsp;&nbsp;&nbsp;
+  <strong>Rivujit Das</strong><br>
+  jsc9903@nyu.edu &nbsp;&nbsp;&nbsp;&nbsp;
+  sk12075@nyu.edu &nbsp;&nbsp;&nbsp;&nbsp;
+  vs3273@nyu.edu &nbsp;&nbsp;&nbsp;&nbsp;
+  rd3681@nyu.edu
 </p>
 
 
