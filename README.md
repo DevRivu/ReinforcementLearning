@@ -121,19 +121,25 @@ This ensures that in each training step, 80% of actions reflect learned behavior
 
 <h3>Result 1</h3>
 <p align="center">
-  <img src="gifs/episode1-ezgif.com-video-to-gif-converter.gif" width="700"><br>
+  <img src="gifs/episode1-ezgif.com-video-to-gif-converter.gif" width="300"><br>
   <strong>Figure 1:</strong> Agent completes the task.
 </p>
 
 <h3>Result 2</h3>
 <p align="center">
-  <img src="gifs/output_final_0_failure-ezgif.com-video-to-gif-converter.gif" width="700"><br>
+  <img src="gifs/output_final_0_failure-ezgif.com-video-to-gif-converter.gif" width="300"><br>
   <strong>Figure 2:</strong> Example of a failure case.
 </p>
 
 <h3>Result 3</h3>
 <p align="center">
-  <img src="gifs/output_final_2_failure-ezgif.com-video-to-gif-converter.gif" width="700"><br>
+  <img src="gifs/output_final_2_failure-ezgif.com-video-to-gif-converter.gif" width="300"><br>
+  <strong>Figure 3:</strong> Alternate failure case.
+</p>
+
+<h3>Result 4</h3>
+<p align="center">
+  <img src="gifs/episode1_gray-ezgif.com-video-to-gif-converter.gif" width="300"><br>
   <strong>Figure 3:</strong> Alternate failure case.
 </p>
 
