@@ -32,9 +32,16 @@
 
 ## 1. Introduction
 
+Reinforcement learning (RL) has demonstrated significant advancements across a diverse range of domains, from strategic board games to sophisticated robotic control tasks. Nevertheless, purely model-free RL approaches typically demand extensive interaction data, face considerable challenges in dealing with environments with sparse or long-horizon rewards, and necessitate substantial hyperparameter tuning and retraining for each new task even within the same domain.
+
+To mitigate these limitations, world models have emerged as an effective paradigm. A world model learns an internal representation of environmental dynamics, enabling agents to anticipate the future states resulting from a sequence of actions. Such models provide the capability for the agent to internally simulate or "imagine" future scenarios, significantly reducing reliance on inefficient trial-and-error interactions with the real environment.
+
+Historically, many world models have operated directly within pixel-space, reconstructing raw images to predict future observations. However, this approach incurs substantial computational costs due to intensive image reconstruction requirements and frequently relies on complex diffusion-based models. Consequently, recent research has increasingly favored latent-space prediction, wherein models operate on compressed, low-dimensional representations of environmental states.
+
 DreamerV3 is a state-of-the-art model-based reinforcement learning (MBRL) algorithm that enables agents to plan and learn from imagined experiences. It leverages a world model to simulate future trajectories, thus significantly improving sample efficiency. At its core, DreamerV3 uses a policy network (an `MLPHead`) that outputs a probability distribution over actions, and typically selects actions with higher probabilities during training and interaction.
 
 However, this behavior leads the agent to primarily visit trajectories deemed optimal or high-reward according to the current state of the policy. As a result, suboptimal, rare, or "bad" states might never be explored. This lack of diversity in the training data can cause the world model to generalize poorly, especially in complex environments with deceptive rewards or partial observability.
+
 
 <p align="center">
   <img src="images/arrow1.png" width="500" style="margin-right: 20px;" />
@@ -44,13 +51,18 @@ However, this behavior leads the agent to primarily visit trajectories deemed op
 
 ## 2. Motivation for the Change
 
-The world model in DreamerV3 is trained using observations collected during environment interaction. If the policy continually samples only high-probability actions, the resulting state transitions tend to be narrow and repetitive, focused around a narrow band of optimal trajectories. Consequently:
+Advanced latent-space models, such as DreamerV3, employ a Recurrent State-Space Model (RSSM) architecture. DreamerV3 encodes high-dimensional observations into compact stochastic latent variables, predicts the evolution of these latent representations conditioned on actions, and refines these representations through combined reconstruction and reward prediction losses. Notably, such models demonstrate robust performance across various benchmarks without task-specific hyperparameter adjustments.
+
+Complementarily, recent innovations like DINO-WM utilize pretrained visual embeddings—such as those derived from DINOv2—to construct task-agnostic latent dynamics models. These pretrained embeddings eliminate the computational overhead associated with pixel reconstruction entirely, enabling more efficient prediction and planning. Moreover, models such as DINO-WM exhibit significant generalization capabilities across varying task configurations and environments, even in the absence of explicit reward supervision. This advancement underscores the potential of latent-space world models to address fundamental RL challenges, thereby advancing efficiency, generalization, and adaptability in reinforcement learning.
+
+Despite these advances, a key limitation persists in many world model pipelines: the narrow distribution of trajectories used during training. The world model in DreamerV3 is trained using observations collected during environment interaction. If the policy continually samples only high-probability actions, the resulting state transitions tend to be narrow and repetitive, focused around a narrow band of optimal trajectories. Consequently:
 
 - The world model fails to accurately capture the dynamics of rare or suboptimal regions of the state space.
 - The policy becomes brittle, unable to recover when it encounters unforeseen states during inference.
 - The imagined rollouts used for policy improvement remain anchored to overly idealized conditions.
 
 To address these limitations, we introduce a controlled exploration strategy by augmenting the action sampling process during real-world interaction.
+
 
 
 ## 3. Proposed Modification: Mixed Policy Sampling
