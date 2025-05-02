@@ -37,7 +37,8 @@ DreamerV3 is a state-of-the-art model-based reinforcement learning (MBRL) algori
 However, this behavior leads the agent to primarily visit trajectories deemed optimal or high-reward according to the current state of the policy. As a result, suboptimal, rare, or "bad" states might never be explored. This lack of diversity in the training data can cause the world model to generalize poorly, especially in complex environments with deceptive rewards or partial observability.
 
 <p align="center">
-  <img src="images/arrow1.png" width="150" />
+  <img src="images/arrow1.png" />
+  <img src="images/arrow2.png" />
 </p>
 
 ## 2. Motivation for the Change
