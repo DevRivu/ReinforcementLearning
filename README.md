@@ -119,13 +119,15 @@ This ensures that in each training step, 80% of actions reflect learned behavior
 
 ## 3. Results
 
-<video width="600" controls>
+<video width="640" height="360" controls>
   <source src="videos/episode1_gray.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
-<video width="600" controls>
-  <source src="videos/episode1.mp4" type="video/mp4">
+<br><br>
+
+<video width="640" height="360" controls>
+  <source src="videos/episode2_color.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
