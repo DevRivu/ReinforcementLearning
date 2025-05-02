@@ -84,11 +84,11 @@ The current approach in DINO-WM involves training the world model followed by pl
 This iterative cycle consisting of alternating training and planning phases is repeated multiple times. Each iteration progressively refines the world model by continually incorporating the latest optimal actions identified during planning. This continuous feedback loop between planning and training ensures that the world model dynamically improves, effectively integrating strategic insights from planning into its predictive structure.
 
 
-<div align="center">
-  <img src="images/EA.png" width="500"/><br>
-  <em>Figure 4: Existing Architecture</em>
-</div>
+<p align="center">
+  <img src="images/EA.png" width="500" />
+</p>
 
+<p align="center"><em>Figure 4: Existing Architecture</em></p>
 
 <p align="center">
   <img src="images/PA.png" width="500" />
