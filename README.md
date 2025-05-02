@@ -22,13 +22,14 @@
 
 ## Contents
 - [1. Introduction](#1-introduction)
-- [2. Motivation for the Change](#2-motivation-for-the-change)
-- [3. Proposed Modification: Mixed Policy Sampling](#3-proposed-modification-mixed-policy-sampling)
-- [4. Technical Implementation](#4-technical-implementation)
-- [5. Effects on Training Dynamics](#5-effects-on-training-dynamics)
-- [6. Assumptions and Constraints](#6-assumptions-and-constraints)
-- [7. Conclusion](#7-conclusion)
-
+- [2. Proposed Methodology](#2-proposed-methodology)
+  - [2.1 Method 1 : Online Exploratory World Model](#21-method-1--online-exploratory-world-model)
+    - [2.1.1 Actions Scorer](#211-actions-scorer)
+  - [2.2 Method 2 : Ideal WM](#22-method-2--ideal-wm)
+  - [2.3 Inducing Exploration in Dreamer-V3](#23-inducing-exploration-in-dreamer-v3)
+- [3. Results](#3-results)
+- [6. Conclusion](#6-conclusion)
+- [7. Future Directions](#7-future-directions)
 
 ## 1. Introduction
 
