@@ -1,7 +1,15 @@
 # Deep Decision Making and Reinforcement Learning: Final Project Submission
 
 ## Team Members  
-Alice Smith | Bob Johnson | Charlie Lee
+<p align="center">
+  <strong>Alice Smith</strong> &nbsp;&nbsp;&nbsp;&nbsp;
+  <strong>Bob Johnson</strong> &nbsp;&nbsp;&nbsp;&nbsp;
+  <strong>Charlie Lee</strong><br>
+  as1234@nyu.edu &nbsp;&nbsp;&nbsp;&nbsp;
+  bj5678@nyu.edu &nbsp;&nbsp;&nbsp;&nbsp;
+  cl9012@nyu.edu
+</p>
+
 
 ## Title  
 **Improving World Model Robustness in DreamerV3 Using Mixed Policy Sampling**
