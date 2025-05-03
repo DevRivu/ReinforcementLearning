@@ -149,8 +149,8 @@ While random exploration paths sometimes resulted in accidental paddle alignment
 PushT environment demonstrate incremental improvement over Method 1, with slightly more effective action behaviors emerging during planning. As in Method 1, the greedy criteria-based planning fails to produce goal-directed behavior consistently, leading the pusher to interact ineffectively with the T-shaped object. Additionally, the absence of expert demonstrations continues to hinder the model’s ability to learn accurate physical interactions, emphasizing the need for better-informed action selection strategies and more diverse training data to improve model performance in complex physical environments.
 
 <p style="text-align: center;">
-  <img src="gifs/output_final_2_failure-ezgif.com-video-to-gif-converter.gif" width="400" style="margin-right: 20px;" />
-  <img src="images/M2.png" width="400" />
+  <img src="gifs/output_final_2_failure-ezgif.com-video-to-gif-converter.gif" width="300" style="margin-right: 20px;" />
+  <img src="images/M2.png" width="500" />
 </p>
 
 
