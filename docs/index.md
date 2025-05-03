@@ -15,7 +15,7 @@ header {
 </p>
 
 <p align="center">
-  jsc9903@nyu.edu &nbsp;&nbsp;&nbsp;&nbsp;
+  jsc9903@nyu.edu &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   sk12075@nyu.edu &nbsp;&nbsp;&nbsp;&nbsp;
   vs3273@nyu.edu &nbsp;&nbsp;&nbsp;&nbsp;
   rd3681@nyu.edu
