@@ -56,7 +56,7 @@ Historically, many world models have operated directly within pixel-space, recon
 We try to work on these two recent methods and try to solve the issues in these methods. DINO-WM assumes having access to offline datasets with sufficient state-action coverage, which can be challenging to obtain for highly complex environments, and it also not the approach that humans would generally take while performing a task if you are play a game you would just know the basic rules or maybe not even that and start playing by taking random actions and making your understanding of the games dynamics better overtime. So we try to collect data using various exploration strategies. This data is mixed with optimal paths (reward maximizing actions) and suboptimal paths (for exploration) and trained on WM. These explorations strategies will involve maximising reward and reward would be of different types and would vary across environments. 
 
 Our data collection would look like following:
-- Start from state S_0
+- Start from state S<sub>0</sub>
 - Say n possible actions, use action_scorer to get optimal action, take the best exploratory action based  on the exploration reward aside from the optimal action
 - Build a short suboptimal exploratory path
 - Train WM on both optimal path and suboptimal paths
@@ -122,9 +122,9 @@ To test our hypothesis on Dreamer-V3, we modify the agent's policy method such t
 - **Batch Size**: We configure the system to use a batch size of 32 parallel environment instances.
 - **Policy Sampling**: For the first 16 environments (instances 0 to 15), actions are sampled from the learned policy distribution, preserving the original behavior of DreamerV3.
 - **Random Sampling**: For 4 environments (instances 16 to 19), actions are uniformly sampled from the full discrete action space (`0` to `17`, inclusive, for Atari).
-- **Criteria Based on Middle Portion**: 4 instances: Exploration reward based on pixel to pixel change of middle portion (breakout tile)
-- **Criteria Based on Lower Portion**: 4 instances: Exploration reward based on pixel to pixel change of lower part (disk movement change)
-- **Criteria Based on Upper Portion**: 4 instances: Exploration reward based on pixel to pixel change of uppermost part (score change)
+- **Criteria Based on Middle Portion**: 4 instances (instances 20 to 23): Exploration reward based on pixel to pixel change of middle portion (breakout tile)
+- **Criteria Based on Lower Portion**: 4 instances (instances 24 to 27): Exploration reward based on pixel to pixel change of lower part (disk movement change)
+- **Criteria Based on Upper Portion**: 4 instances (instances 28 to 31): Exploration reward based on pixel to pixel change of uppermost part (score change)
 
 This ensures that in each training step, 50% of actions reflect learned behavior, while 50% inject purely exploratory behavior.
 
@@ -155,7 +155,7 @@ PushT environment demonstrate incremental improvement over Method 1, with slight
 
 
 <h3>Results (Inducing exploration in Dreamer-V3)</h3>
-The primary reason our modified DreamerV3 model did not achieve the desired performance is the significantly reduced training duration. While the original DreamerV3 model was trained for 10^10 steps, our model was trained for only 10^5 steps, limiting its opportunity to thoroughly learn optimal policies. Additionally, introducing random trajectories as seed states for the imagination process inadvertently slowed policy convergence, as the model frequently imagined suboptimal or irrelevant scenarios. To address this, we propose masking these random-action instances during the imagination phase, ensuring the policy training focuses exclusively on trajectories derived from its learned distribution, potentially accelerating convergence and improving performance.
+The primary reason our modified DreamerV3 model did not achieve the desired performance is the significantly reduced training duration. While the original DreamerV3 model was trained for 10^10 steps, our model was trained for only 10^5 steps, limiting its opportunity to thoroughly learn optimal policies. Additionally, introducing random trajectories as seed states for the imagination process inadvertently slowed policy convergence, as the model frequently imagined suboptimal or irrelevant scenarios. To address this, we propose masking these random and sub-optimal action instances during the imagination phase, ensuring the policy training focuses exclusively on trajectories derived from its learned distribution, potentially accelerating convergence and improving performance.
 <p align="center">
   <img src="gifs/episode1_gray-ezgif.com-video-to-gif-converter.gif" width="330"><br>
 </p>
@@ -174,3 +174,4 @@ In the end, even though we didn’t hit perfect scores, this journey helped us b
 - Try a neural network–based action scorer.
 - Integrate planning inside world model (WM) training and jointly optimize planning and world model
 - Evaluate across diverse environments to assess robustness and failure modes of the method.
+- In Dreamer-V3 mask the random and sub-optimal action instances during the imagination phase.
