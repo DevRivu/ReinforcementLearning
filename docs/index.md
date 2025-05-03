@@ -133,15 +133,15 @@ This ensures that in each training step, 50% of actions reflect learned behavior
 <h3>Results PushT (Method 1 DINO WM)</h3>
 The Dino-WM results on the PushT environment highlight several limitations. While exploratory actions sampled from the distribution introduced some variability, the optimal action selection—being greedily biased toward the nearest path to the T—caused the pusher to remain near the object without meaningful interaction. Although training loss decreased quickly, it plateaued early, suggesting insufficient convergence. The model struggled to learn effective dynamics due to limited training epochs, simplistic planning, and the absence of expert data, which made capturing realistic physics particularly challenging.
 <p align="center">
-  <img src="gifs/output_final_0_failure-ezgif.com-video-to-gif-converter.gif" width="300" style="margin-right: 20px;">
-  <img src = "images/M1Dino.png">
+  <img src="gifs/output_final_0_failure-ezgif.com-video-to-gif-converter.gif" width="330" style="margin-right: 20px;">
+  <img src = "images/M1Dino.png" width="500">
 </p>
 
 <h3>Results Atari (Method 1 DINO WM)</h3>
 While random exploration paths sometimes resulted in accidental paddle alignment, the success rate was extremely low due to undirected sampling. The optimal path strategy, using tree-based greedy reward selection, showed consistent short-term success by immediately targeting reachable bricks but failed to maintain the necessary paddle alignment for sustained 
 <p align="center">
-  <img src="gifs/episode1-ezgif.com-video-to-gif-converter.gif" width="300" style="margin-right: 20px;">
-  <img src = "images/M22.png">
+  <img src="gifs/episode1-ezgif.com-video-to-gif-converter.gif" width="330" style="margin-right: 20px;">
+  <img src = "images/M22.png" width="500">
 </p>
 
 
@@ -157,7 +157,7 @@ PushT environment demonstrate incremental improvement over Method 1, with slight
 <h3>Results (Inducing exploration in Dreamer-V3)</h3>
 The primary reason our modified DreamerV3 model did not achieve the desired performance is the significantly reduced training duration. While the original DreamerV3 model was trained for 10^10 steps, our model was trained for only 10^5 steps, limiting its opportunity to thoroughly learn optimal policies. Additionally, introducing random trajectories as seed states for the imagination process inadvertently slowed policy convergence, as the model frequently imagined suboptimal or irrelevant scenarios. To address this, we propose masking these random-action instances during the imagination phase, ensuring the policy training focuses exclusively on trajectories derived from its learned distribution, potentially accelerating convergence and improving performance.
 <p align="center">
-  <img src="gifs/episode1_gray-ezgif.com-video-to-gif-converter.gif" width="300"><br>
+  <img src="gifs/episode1_gray-ezgif.com-video-to-gif-converter.gif" width="330"><br>
 </p>
 
 
