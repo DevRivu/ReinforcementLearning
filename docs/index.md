@@ -67,7 +67,7 @@ The reward strategies can be broadly categorized into extrinsic, intrinsic, hybr
 
 
 <p style="text-align: center;">
-  <img src="demo_page/images/arrow1.png" width="900"/>
+  <img src="images/arrow1.png" width="900"/>
 </p>
 <p align="center">
   <strong><span style="font-size: 18px;">Figure 1: Blue: optimal path (according to some action_scorer); red: suboptimal paths.</span></strong>
