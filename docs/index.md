@@ -10,7 +10,7 @@ header {
 <p align="center">
   <strong>Jayesh Chaudhari</strong> &nbsp;&nbsp;&nbsp;&nbsp;
   <strong>Satyam Kumar</strong> &nbsp;&nbsp;&nbsp;&nbsp;
-  <strong>Varad Vijay Suryavanshi</strong> &nbsp;&nbsp;&nbsp;&nbsp;
+  <strong>Varad Vijay Suryavanshi</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <strong>Rivujit Das</strong>
 </p>
 
