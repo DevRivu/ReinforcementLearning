@@ -163,9 +163,11 @@ The primary reason our modified DreamerV3 model did not achieve the desired perf
 
 ## 4. Conclusion
 
-We introduce a lightweight yet impactful modification to the DreamerV3 framework to promote better exploration and robustness. By injecting randomly sampled actions into a portion of the interaction batch, we encourage the agent to visit diverse states, making both the world model and policy more capable of handling suboptimal and unexpected situations. This strategy preserves the core structure of DreamerV3 while addressing one of its key limitations in exploration and generalization.
+This project was our attempt to push the boundaries of exploration in world model-based reinforcement learning. Our methods introduced structured randomness through curiosity-driven rewards and suboptimal action paths. We tried to bring agents closer to how humans naturally learn such as by exploring, making mistakes, and gradually improving.
 
-This mixed-policy sampling technique offers a promising direction for enhancing MBRL agents, particularly in environments where optimal trajectories are hard to discover without structured exploration.
+We worked with both DINO-WM and DreamerV3, testing new ways to collect data and influence learning. While the results were mixed, they gave us meaningful insights. In DINO-WM our exploration strategies failed to get good trajectories and thus it did not give very good results. We need a much better exploration strategy to replace the offline world model training process with an online world model. With DreamerV3, our modifications yielded some decent results on Atari environments. However, a direct comparison with the original DreamerV3 requires significantly more training epochs, making conclusive evaluation computationally expensive.
+
+In the end, even though we didn’t hit perfect scores, this journey helped us better understand the balance between exploration and exploitation and how crucial smart exploration is for building better, more adaptable world models. There’s still a lot to improve, but we believe this work sets the stage for deeper investigations into learning more from less, especially in complex, open-ended environments.
 
 ## 5. Future Directions
 
