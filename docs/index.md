@@ -66,7 +66,7 @@ Our data collection would look like following:
 The reward strategies can be broadly categorized into extrinsic, intrinsic, hybrid, and hierarchical rewards. In our case the intrinsic reward strategies seem to be relevant so we try to work on them. We implement exploration/curiosity based reward strategies. Examples of these strategies in the pushT environment can be increasing the number of collisions between the pusher robotic arm and the T block, increasing pixel to pixel change in the environment per step.
 
 
-<p style="text-align: center;">
+<p align="center">
   <img src="images/arrow1.png" width="900"/>
 </p>
 <p align="center">
