@@ -15,6 +15,14 @@
   rd3681@nyu.edu
 </p>
 
+<table align="center">
+  <tr>
+    <td align="center"><strong>Jayesh Chaudhari</strong><br>jsc9903@nyu.edu</td>
+    <td align="center"><strong>Satyam Kumar</strong><br>sk12075@nyu.edu</td>
+    <td align="center"><strong>Varad Vijay Suryavanshi</strong><br>vs3273@nyu.edu</td>
+    <td align="center"><strong>Rivujit Das</strong><br>rd3681@nyu.edu</td>
+  </tr>
+</table>
 
 
 ## Title  
