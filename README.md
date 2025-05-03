@@ -21,15 +21,15 @@
 Online Exploratory World Model
 
 ## Contents
-[1. Introduction](#1-introduction)
-[2. Proposed Methodology](#2-proposed-methodology)
-  [2.1 Method 1 : Online Exploratory World Model](#21-method-1--online-exploratory-world-model)
-    [2.1.1 Actions Scorer](#211-actions-scorer)
-  [2.2 Method 2 : Ideal WM](#22-method-2--ideal-wm)
-  [2.3 Inducing Exploration in Dreamer-V3](#23-inducing-exploration-in-dreamer-v3)
-[3. Results](#3-results)
-[4. Conclusion](#4-conclusion)
-[5. Future Directions](#5-future-directions)
+- [1. Introduction](#1-introduction)
+- [2. Proposed Methodology](#2-proposed-methodology)
+  - [2.1 Method 1 : Online Exploratory World Model](#21-method-1--online-exploratory-world-model)
+    - [2.1.1 Actions Scorer](#211-actions-scorer)
+  - [2.2 Method 2 : Ideal WM](#22-method-2--ideal-wm)
+  - [2.3 Inducing Exploration in Dreamer-V3](#23-inducing-exploration-in-dreamer-v3)
+- [3. Results](#3-results)
+- [4. Conclusion](#4-conclusion)
+- [5. Future Directions](#5-future-directions)
 
 ## 1. Introduction
 
