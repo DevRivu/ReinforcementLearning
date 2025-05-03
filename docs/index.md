@@ -134,14 +134,14 @@ This ensures that in each training step, 50% of actions reflect learned behavior
 The Dino-WM results on the PushT environment highlight several limitations. While exploratory actions sampled from the distribution introduced some variability, the optimal action selection—being greedily biased toward the nearest path to the T—caused the pusher to remain near the object without meaningful interaction. Although training loss decreased quickly, it plateaued early, suggesting insufficient convergence. The model struggled to learn effective dynamics due to limited training epochs, simplistic planning, and the absence of expert data, which made capturing realistic physics particularly challenging.
 <p align="center">
   <img src="gifs/output_final_0_failure-ezgif.com-video-to-gif-converter.gif" width="330" style="margin-right: 20px;">
-  <img src = "images/M1Dino.png" width="520">
+  <img src = "images/M1Dino.png" width="530">
 </p>
 
 <h3>Results Atari (Method 1 DINO WM)</h3>
 While random exploration paths sometimes resulted in accidental paddle alignment, the success rate was extremely low due to undirected sampling. The optimal path strategy, using tree-based greedy reward selection, showed consistent short-term success by immediately targeting reachable bricks but failed to maintain the necessary paddle alignment for sustained 
 <p align="center">
   <img src="gifs/episode1-ezgif.com-video-to-gif-converter.gif" width="330" style="margin-right: 20px;">
-  <img src = "images/M22.png" width="520">
+  <img src = "images/M22.png" width="530">
 </p>
 
 
@@ -150,7 +150,7 @@ PushT environment demonstrate incremental improvement over Method 1, with slight
 
 <p style="text-align: center;">
   <img src="gifs/output_final_2_failure-ezgif.com-video-to-gif-converter.gif" width="330" style="margin-right: 20px;" />
-  <img src="images/M2.png" width="500" />
+  <img src="images/M2.png" width="510" />
 </p>
 
 
