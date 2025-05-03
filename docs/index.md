@@ -131,14 +131,16 @@ This ensures that in each training step, 50% of actions reflect learned behavior
 ## 3. Results
 
 <h3>Results PushT (Method 1 DINO WM)</h3>
-The Dino-WM results on the PushT environment highlight several limitations. While exploratory actions sampled from the distribution introduced some variability, the optimal action selection—being greedily biased toward the nearest path to the T—caused the pusher to remain near the object without meaningful interaction. Although training loss decreased quickly, it plateaued early, suggesting insufficient convergence. The model struggled to learn effective dynamics due to limited training epochs, simplistic planning, and the absence of expert data, which made capturing realistic physics particularly challenging.
+The DINO WM results on the PushT environment reveal several limitations. Our use of greedy techniques to select optimal and exploratory actions fails to produce diverse or effective trajectories, which hampers the model's ability to learn the environment's dynamics comprehensively. While the greedy approach does encourage frequent interactions between the Pusher and the T block leading to effective learning of those specific dynamics, it neglects other critical patterns. For example, interactions where the Pusher approaches the T block, pushes it, then retreats and re-engages from a different angle are poorly represented and thus not well learned. To effectively replace the offline world model training proposed in the original DINO WM paper, we require a more robust action selector module capable of generating diverse trajectories that capture a broader range of interaction dynamics.
 <p align="center">
   <img src="gifs/output_final_0_failure-ezgif.com-video-to-gif-converter.gif" width="330" style="margin-right: 20px;">
   <img src = "images/M1Dino.png" width="530">
 </p>
 
 <h3>Results Atari (Method 1 DINO WM)</h3>
-While random exploration paths sometimes resulted in accidental paddle alignment, the success rate was extremely low due to undirected sampling. The optimal path strategy, using tree-based greedy reward selection, showed consistent short-term success by immediately targeting reachable bricks but failed to maintain the necessary paddle alignment for sustained 
+In the Atari Breakout environment, rewards are extremely sparse, making effective learning challenging. We attempted to capture meaningful interactions by inducing changes across different regions of the environment. However, both greedy and random exploration strategies perform poorly in this setting. The ball's interactions are infrequent in the collected trajectories, as it often falls without meaningful engagement, preventing the world model from observing reward-generating behaviors. Additionally, tree-based reward selection fails to identify action sequences that align the paddle directly beneath the ball, which is crucial for success. Furthermore, other approaches that perform well on Atari games typically rely on training over a large number of epochs, a scale of computation we were unable to replicate.
+
+
 <p align="center">
   <img src="gifs/episode1-ezgif.com-video-to-gif-converter.gif" width="330" style="margin-right: 20px;">
   <img src = "images/M22.png" width="530">
@@ -146,7 +148,7 @@ While random exploration paths sometimes resulted in accidental paddle alignment
 
 
 <h3>Results PushT (Method 2 DINO WM)</h3>
-PushT environment demonstrate incremental improvement over Method 1, with slightly more effective action behaviors emerging during planning. As in Method 1, the greedy criteria-based planning fails to produce goal-directed behavior consistently, leading the pusher to interact ineffectively with the T-shaped object. Additionally, the absence of expert demonstrations continues to hinder the model’s ability to learn accurate physical interactions, emphasizing the need for better-informed action selection strategies and more diverse training data to improve model performance in complex physical environments.
+PushT environment demonstrate incremental improvement over Method 1, with slightly more effective action behaviors emerging during planning. We can observe that interative planning and improving world model on the planned actions helps in improving the world model by covering tragectories that were not covered. Still in continues to suffer from from the same problem of non-ideal action selection as method 1. The absence of expert demonstrations continues to hinder the model’s ability to learn accurate physical interactions, emphasizing the need for better-informed action selection strategies and more diverse training data to improve model performance in complex physical environments.
 
 <p style="text-align: center;">
   <img src="gifs/output_final_2_failure-ezgif.com-video-to-gif-converter.gif" width="330" style="margin-right: 20px;" />
