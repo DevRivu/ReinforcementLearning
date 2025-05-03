@@ -7,19 +7,7 @@ header {
 # Deep Decision Making and Reinforcement Learning: Final Project Submission
 
 ## Team Members  
-<p align="center">
-  <strong>Jayesh Chaudhari</strong> &nbsp;&nbsp;&nbsp;&nbsp;
-  <strong>Satyam Kumar</strong> &nbsp;&nbsp;&nbsp;&nbsp;
-  <strong>Varad Vijay Suryavanshi</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <strong>Rivujit Das</strong>
-</p>
 
-<p align="center">
-  jsc9903@nyu.edu &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  sk12075@nyu.edu &nbsp;&nbsp;&nbsp;&nbsp;
-  vs3273@nyu.edu &nbsp;&nbsp;&nbsp;&nbsp;
-  rd3681@nyu.edu
-</p>
 
 
 <table align="center">
