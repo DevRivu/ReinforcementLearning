@@ -174,6 +174,6 @@ In the end, even though we didn’t hit perfect scores, this journey helped us b
 ## 5. Future Directions
 
 - Try a neural network–based action scorer.
-- Integrate planning inside world model (WM) training and jointly optimize planning and world model
+- Improve the integration of planning with world model (WM) training and jointly optimize planning and world model.
 - Evaluate across diverse environments to assess robustness and failure modes of the method.
 - In Dreamer-V3 mask the random and sub-optimal action instances during the imagination phase.
