@@ -18,7 +18,7 @@
 
 
 ## Title  
-** Online Exploratory World Model **
+Online Exploratory World Model
 
 ## Contents
 - [1. Introduction](#1-introduction)
@@ -28,8 +28,8 @@
   - [2.2 Method 2 : Ideal WM](#22-method-2--ideal-wm)
   - [2.3 Inducing Exploration in Dreamer-V3](#23-inducing-exploration-in-dreamer-v3)
 - [3. Results](#3-results)
-- [6. Conclusion](#6-conclusion)
-- [7. Future Directions](#7-future-directions)
+- [4. Conclusion](#4-conclusion)
+- [5. Future Directions](#5-future-directions)
 
 ## 1. Introduction
 
@@ -154,13 +154,13 @@ The primary reason our modified DreamerV3 model did not achieve the desired perf
 </p>
 
 
-## 6. Conclusion
+## 4. Conclusion
 
 We introduce a lightweight yet impactful modification to the DreamerV3 framework to promote better exploration and robustness. By injecting randomly sampled actions into a portion of the interaction batch, we encourage the agent to visit diverse states, making both the world model and policy more capable of handling suboptimal and unexpected situations. This strategy preserves the core structure of DreamerV3 while addressing one of its key limitations in exploration and generalization.
 
 This mixed-policy sampling technique offers a promising direction for enhancing MBRL agents, particularly in environments where optimal trajectories are hard to discover without structured exploration.
 
-## 7. Future Directions
+## 5. Future Directions
 
 - Try a neural network–based action scorer.
 - Integrate planning inside world model (WM) training and jointly optimize planning and world model
